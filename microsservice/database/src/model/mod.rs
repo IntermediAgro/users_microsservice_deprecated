@@ -1,11 +1,11 @@
 pub mod postgres;
 
-use sqlx::PgConnection;
+pub struct Db<P> {
+    pub url: &'static str,
+    //    pub connection: C,
+    pub pool: P,
+}
 
-pub trait Database<C, P> {
-    async fn new(url: &str) -> Self;
-
-    fn get_connection() -> C;
-
-    fn get_pool() -> P;
+pub trait Database<P> {
+    async fn new(url: &'static str) -> Db<P>;
 }
