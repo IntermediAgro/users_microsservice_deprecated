@@ -12,6 +12,6 @@ WORKDIR /usr/local/bin
 
 COPY --from=build /app/target/release/microsservice .
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["./microsservice"]
