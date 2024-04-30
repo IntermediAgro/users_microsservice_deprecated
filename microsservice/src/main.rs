@@ -1,6 +1,12 @@
+mod controller;
+mod router;
+mod server;
+mod service;
+
 //const SECRET_KEY: &str = env!("SECRET_KEY");
 
-fn main() {
+#[tokio::main]
+async fn main() {
     //    println!("Hello, world! {:?}", SECRET_KEY);
-    println!("Hello, world!");
+    server::startup().await.unwrap()
 }
