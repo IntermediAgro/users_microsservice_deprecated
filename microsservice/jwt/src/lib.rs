@@ -4,7 +4,13 @@ use crate::model::{claims::Claims, user::User};
 use chrono::{Duration, Utc};
 use jsonwebtoken::{decode, encode, DecodingKey, EncodingKey, Header, Validation};
 
+use std::env;
+
+//const SECRET_KEY: &str = env!("SECRET_KEY");
+
 pub fn encode_jwt(user: User) -> Result<String, String> {
+    let SECRET_KEY = env::var("SECRET_KEY").expect("SECRET_KEY must be set");
+
     let claims = Claims {
         email: user.email,
         exp: (Utc::now() + Duration::days(1)).timestamp(),
@@ -12,7 +18,7 @@ pub fn encode_jwt(user: User) -> Result<String, String> {
     let token = encode(
         &Header::default(),
         &claims,
-        &EncodingKey::from_secret("mykey".as_bytes()),
+        &EncodingKey::from_secret(SECRET_KEY.as_bytes()),
     )
     .map_err(|e| e.to_string());
 
@@ -20,9 +26,11 @@ pub fn encode_jwt(user: User) -> Result<String, String> {
 }
 
 pub fn decode_jwt(token: &str) -> Result<User, String> {
+    let SECRET_KEY = env::var("SECRET_KEY").expect("SECRET_KEY must be set");
+
     let token_data = decode::<User>(
         token,
-        &DecodingKey::from_secret("mykey".as_bytes()),
+        &DecodingKey::from_secret(SECRET_KEY.as_bytes()),
         &Validation::default(),
     );
 
