@@ -1,6 +1,5 @@
-workspace = { members = [ "config","jwt"] }
 [package]
-name = "microsservice"
+name = "config"
 version = "0.1.0"
 edition = "2021"
 
