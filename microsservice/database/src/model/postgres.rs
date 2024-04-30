@@ -1,27 +1,15 @@
-use sqlx::{Connection, PgConnection, PgPool};
+use sqlx::PgPool;
 
-use super::Database;
+use super::{Database, Db};
 
-pub struct Postgres {
-    pub url: String,
-    pub connection: PgConnection,
-    pub pool: PgPool,
-}
+pub struct Postgres;
 
-impl Database<PgConnection, PgPool> for Postgres {
-    async fn new(url: &str) -> Self {
-        Self {
-            url: url.to_string(),
-            connection: PgConnection::connect(url).await.unwrap(),
+impl Database<PgPool> for Postgres {
+    async fn new(url: &'static str) -> Db<PgPool> {
+        Db {
+            url,
+            //connection: PgConnection::connect(url).await.unwrap(),
             pool: PgPool::connect(url).await.unwrap(),
         }
-    }
-
-    fn get_connection() -> PgConnection {
-        todo!()
-    }
-
-    fn get_pool() -> PgPool {
-        todo!()
     }
 }
