@@ -1,7 +1,4 @@
-use axum::{
-    http::{Error, Result},
-    Router, ServiceExt,
-};
+use axum::{http::Result, Router};
 use tokio::net::TcpListener;
 
 use crate::router;
