@@ -1,3 +1,5 @@
+use sqlx::Error;
+
 pub mod postgres;
 
 pub struct Db<P> {
@@ -7,5 +9,5 @@ pub struct Db<P> {
 }
 
 pub trait Database<P> {
-    async fn new(url: &'static str) -> Db<P>;
+    async fn new(url: &'static str) -> Result<Db<P>, Error>;
 }
