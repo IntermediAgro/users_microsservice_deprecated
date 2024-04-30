@@ -1,9 +1,12 @@
-use axum::{http::Error, Router, ServiceExt};
+use axum::{
+    http::{Error, Result},
+    Router, ServiceExt,
+};
 use tokio::net::TcpListener;
 
 use crate::router;
 
-pub async fn startup() -> Result<(), Error> {
+pub async fn startup() -> Result<()> {
     let routes = Router::new().merge(router::hello());
 
     let listener = TcpListener::bind("0.0.0.0:8080")
