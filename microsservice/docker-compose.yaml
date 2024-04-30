@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  users-microservice:
+    image: users-microservice
+    build: .
+    ports:
+      - "8080:8080"
