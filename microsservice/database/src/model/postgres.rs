@@ -5,11 +5,10 @@ use super::{Database, Db};
 pub struct Postgres;
 
 impl Database<PgPool> for Postgres {
-    async fn new(url: &'static str) -> Result<Db<PgPool>, Error> {
+    async fn new(url: String) -> Result<Db<PgPool>, Error> {
         Ok(Db {
+            pool: PgPool::connect(url.as_str()).await.unwrap(),
             url,
-            //connection: PgConnection::connect(url).await.unwrap(),
-            pool: PgPool::connect(url).await.unwrap(),
         })
     }
 }
