@@ -1,12 +1,11 @@
 [package]
-name = "jwt"
+name = "database"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-chrono = "0.4.38"
-dotenv = "0.15.0"
-jsonwebtoken = "9.3.0"
-serde = { version = "1.0.199", features = ["derive"] }
+
+sqlx = { version = "0.7.4", features = ["postgres", "runtime-tokio-rustls"] }
+tokio = { version = "1.37.0", features = ["full"] }
